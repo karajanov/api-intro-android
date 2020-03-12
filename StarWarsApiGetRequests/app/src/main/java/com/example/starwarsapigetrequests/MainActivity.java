@@ -4,48 +4,53 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Spinner spinnerPlanetIds;
     StarWarsApi apiReference = RetrofitBuilder
             .getApiReference(RetrofitBuilder.getBuilder());
-
-    TextView tvTest;
+    ProgressBar loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //initialization
         spinnerPlanetIds = findViewById(R.id.spinner_ids);
+        loadingBar = findViewById(R.id.loading_bar);
 
-        tvTest = findViewById(R.id.text_view_test);
-
+        //event handlers
+        loadingBar.setVisibility(View.GONE);
         addPlanetIdsToSpinner(apiReference);
+        spinnerPlanetIds.setOnItemSelectedListener(this);
 
-//        String[] arr = {"1", "2", "3"};
-//
-//
-//        spinnerIds.setAdapter(adapter);
     }
 
     private void addPlanetIdsToSpinner(StarWarsApi apiReference) {
 
         Call<PlanetCounter> call = apiReference.getPlanetCount();
 
+        loadingBar.setVisibility(View.VISIBLE);
         //executing the request on a background thread to prevent
         //freezing the main thread and crashing the app
         call.enqueue(new Callback<PlanetCounter>() {
             @Override
             public void onResponse(Call<PlanetCounter> call, Response<PlanetCounter> response) {
+
+                loadingBar.setVisibility(View.GONE);
 
                 //HTTP 4** , 5** status codes
                 if (!response.isSuccessful()) {
@@ -88,6 +93,18 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }

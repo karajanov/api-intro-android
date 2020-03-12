@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">StarWarsApiGetRequests</string>
+    <string name="planet_id">Planet ID</string>
+    <string name="planet_info">
+        Name:
+        Terrain:
+        Smth:
+        Smth Else:
+    </string>
 </resources>
