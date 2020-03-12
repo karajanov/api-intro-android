@@ -19,9 +19,9 @@ public class RetrofitBuilder {
 
     public static StarWarsApi getApiReference(Retrofit builder) {
 
-        StarWarsApi apiObj = builder.create(StarWarsApi.class);
+        StarWarsApi apiRef = builder.create(StarWarsApi.class);
 
-        return apiObj;
+        return apiRef;
     }
 
 }
