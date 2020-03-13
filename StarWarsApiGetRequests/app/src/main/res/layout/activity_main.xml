@@ -79,8 +79,7 @@
                 android:id="@+id/text_view_planet_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:text="@string/planet_info" />
+                android:background="#FFFFFF" />
         </LinearLayout>
     </ScrollView>
 
